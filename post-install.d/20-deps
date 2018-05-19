@@ -1,0 +1,24 @@
+#!/bin/bash
+set -xeuo pipefail
+
+#
+# Installs packages and AUR manager.
+#
+
+pacman -Syu
+pacman -S --noconfirm --needed - < "$BASE_DIR/conf.d/packages"
+pacman -S --noconfirm --needed - < "$BASE_DIR/conf.d/packages-desktop"
+
+if ! pacman -Qi yay &> /dev/null; then
+    # temporaily add nobody to sudoers
+    cp /etc/sudoers sudoers.bak
+    echo 'nobody ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+    # install yay
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    sudo -u nobody makepkg -si --noconfirm --needed
+
+    # rollback changes to sudoers
+    mv sudoers.bak /etc/sudoers
+fi

@@ -1,0 +1,33 @@
+#!/bin/bash
+set -xeuo pipefail
+
+#
+# Setup netctl & systemd to automatically manage
+# wifi (if present) and wired interfaces.
+#
+
+for interface_path in /sys/class/net/*; do
+    interface="${interface_path##*/}"
+
+    [[ "$interface" == en* ]] && WIRE="$interface"
+    [[ "$interface" == wl* ]] && WIFI="$interface"
+done
+
+for profile in $(netctl list); do
+    netctl disable "$profile"
+done
+
+if [[ "${WIRE:-}" ]]; then
+    echo "Interface=${WIRE}" > /etc/netctl/dhcp_profile
+    echo "Connection=ethernet" >> /etc/netctl/dhcp_profile
+    echo "IP=dhcp" >> /etc/netctl/dhcp_profile
+
+    systemctl enable "netctl-ifplugd@${WIRE}.service"
+    systemctl start "netctl-ifplugd@${WIRE}.service"
+fi
+
+if [[ "${WIFI:-}" ]]; then
+    pacman -S --noconfirm --needed - < "$BASE_DIR/conf.d/packages-wifi"
+    systemctl enable "netctl-auto@${WIFI}.service"
+    systemctl start "netctl-auto@${WIFI}.service"
+fi

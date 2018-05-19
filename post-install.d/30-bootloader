@@ -1,0 +1,32 @@
+#!/bin/bash
+set -xeuo pipefail
+
+#
+# Installs and configures the bootloader (systemd-boot).
+#
+
+bootctl --path=/boot install
+
+if [[ "$ENCRYPT" == true ]]; then
+    UUID=$(blkid -s UUID -o value "$HOME_PARTITION")
+    cat > /boot/loader/entries/arch.conf <<EOF
+title   Arch Linux
+linux   /vmlinuz-linux
+initrd  /initramfs-linux.img
+options cryptdevice=UUID=$UUID:$CRYPT_VOLUME_NAME root=/dev/mapper/$CRYPT_VOLUME_NAME add_efi_memmap
+EOF
+else
+    PARTUUID=$(blkid -s PARTUUID -o value "$HOME_PARTITION")
+    cat > /boot/loader/entries/arch.conf <<EOF
+title   Arch Linux
+linux   /vmlinuz-linux
+initrd  /initramfs-linux.img
+options root=PARTUUID=$PARTUUID rw
+EOF
+fi
+
+cat > /boot/loader/loader.conf <<EOF
+default arch
+timeout 4
+editor 0
+EOF

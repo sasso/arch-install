@@ -1,0 +1,14 @@
+#!/bin/bash
+set -xeuo pipefail
+
+BASE_DIR="$PWD"
+WORK_DIR="$(mktemp --directory)"
+export BASE_DIR
+export WORK_DIR
+
+set -o allexport
+source "${BASE_DIR}/conf.d/settings" 
+set +o allexport
+
+cd "$WORK_DIR"
+

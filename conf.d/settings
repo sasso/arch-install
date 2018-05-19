@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Whether or not to run rankmirrors before installation.
+RANKMIRRORS=false
+
+# Whether or not to encrypt the `DEVICE`
+ENCRYPT=false
+CRYPT_VOLUME_NAME="cryptroot"
+
+# Partitions
+DEVICE="/dev/sda"
+BOOT_PARTITION="${DEVICE}1"
+HOME_PARTITION="${DEVICE}2"
+
+# User & Home
+HOSTNAME="host"
+USERNAME="imba3r"
+USERHOME="/home/$USERNAME"
+
+# Passwords
+SECRETS_PW=""
+DMCRYPT_PW=""
+ROOT_PW=""
+USER_PW=""

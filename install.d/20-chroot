@@ -1,0 +1,13 @@
+#!/bin/bash
+set -xeuo pipefail
+
+cp -r "$BASE_DIR" /mnt/aai
+
+arch-chroot /mnt ./aai/post-install
+
+rm -r /mnt/aai
+umount -R /mnt
+
+if [[ "$ENCRYPT" == true ]]; then
+    cryptsetup close "$CRYPT_VOLUME_NAME"
+fi

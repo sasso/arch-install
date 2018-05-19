@@ -1,0 +1,24 @@
+#!/bin/bash
+set -xeuo pipefail
+
+# Create the partition table.
+parted -s "$DEVICE" mklabel gpt
+parted -s "$DEVICE" mkpart ESP fat32 1MiB 513MiB
+parted -s "$DEVICE" set 1 boot on
+parted -s "$DEVICE" mkpart primary 513MiB 100%
+
+# Encrypt, format and mount home partition.
+if [[ "$ENCRYPT" == true ]]; then
+    echo -n "$DMCRYPT_PW" | cryptsetup -v luksFormat --type luks2 "$HOME_PARTITION" -
+    echo -n "$DMCRYPT_PW" | cryptsetup open "$HOME_PARTITION" "$CRYPT_VOLUME_NAME" -d -
+    mkfs.ext4 /dev/mapper/"$CRYPT_VOLUME_NAME"
+    mount /dev/mapper/"$CRYPT_VOLUME_NAME" /mnt
+else
+    mkfs.ext4 "$HOME_PARTITION"
+    mount "$HOME_PARTITION" /mnt
+fi
+
+# Format and mount boot partition.
+mkfs.fat -F32 "$BOOT_PARTITION"
+mkdir /mnt/boot
+mount "$BOOT_PARTITION" /mnt/boot

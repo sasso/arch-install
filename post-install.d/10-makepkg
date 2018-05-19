@@ -1,0 +1,12 @@
+#!/bin/bash
+set -xeuo pipefail
+
+#
+# Makepkg cannot run as root.
+# Therefore allow user nobody to make changes in our work dir.
+#
+
+chgrp nobody "$WORK_DIR"
+chmod g+ws "$WORK_DIR"
+setfacl -m u::rwx,g::rwx "$WORK_DIR"
+setfacl -d --set u::rwx,g::rwx,o::- "$WORK_DIR"

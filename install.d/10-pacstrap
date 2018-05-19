@@ -1,0 +1,10 @@
+#!/bin/bash
+set -xeuo pipefail
+
+if [[ "$RANKMIRRORS" = true ]]; then
+    mv /etc/pacman.d/mirrorlist  /etc/pacman.d/mirrorlist.bak
+    rankmirrors /etc/pacman.d/mirrorlist.bak > /etc/pacman.d/mirrorlist
+fi
+
+pacstrap /mnt - < "$BASE_DIR/conf.d/packages"
+genfstab -U /mnt >> /mnt/etc/fstab

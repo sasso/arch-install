@@ -1,0 +1,43 @@
+#!/bin/bash
+set -xeuo pipefail
+
+#
+# Configures the system as per:
+# https://wiki.archlinux.org/index.php/installation_guide#Configure_the_system
+#
+
+# Time Zone
+ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+hwclock --systohc
+
+# Locales
+cat > /etc/locale.gen <<EOF
+de_DE.UTF-8 UTF-8
+de_DE ISO-8859-1
+en_US.UTF-8 UTF-8
+en_US ISO-8859-1
+EOF
+locale-gen
+
+cat > /etc/locale.conf <<EOF
+LANG=en_US.UTF-8
+EOF
+
+# Keymap
+cat > /etc/vconsole.conf <<EOF
+KEYMAP=de-latin1
+EOF
+
+# Hostname
+echo "$HOSTNAME" > /etc/hostname
+
+# Recreate initramfs
+if [[ "$ENCRYPT" == true ]]; then
+    cat > /etc/mkinitcpio.conf <<EOF
+    MODULES=()
+    BINARIES=()
+    FILES=()
+    HOOKS=(base udev autodetect modconf keyboard keymap block encrypt filesystems keyboard fsck)
+EOF
+    mkinitcpio -p linux
+fi

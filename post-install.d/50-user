@@ -1,0 +1,22 @@
+#!/bin/bash
+set -xeuo pipefail
+
+#
+# Creates a new user with sudo rights.
+#
+
+if ! id -u "$USERNAME" &>/dev/null; then
+    useradd -m -s /bin/bash "$USERNAME"
+    mkdir -p "$USERHOME"
+else
+    echo "User $USERNAME already created."
+fi
+
+if ! grep -q "$USERNAME" /etc/sudoers; then
+    echo "$USERNAME ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+else
+    echo "User $USERNAME is already in sudoers."
+fi
+
+echo "root:$ROOT_PW" | chpasswd
+echo "$USERNAME:$USER_PW" | chpasswd
