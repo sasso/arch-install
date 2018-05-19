@@ -3,6 +3,9 @@
 # Whether or not to run rankmirrors before installation.
 RANKMIRRORS=false
 
+# If false, dont install X11 stuff.
+DESKTOP=true
+
 # Whether or not to encrypt the `DEVICE`
 ENCRYPT=false
 CRYPT_VOLUME_NAME="cryptroot"

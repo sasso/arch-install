@@ -7,7 +7,9 @@ set -xeuo pipefail
 
 pacman -Syu
 pacman -S --noconfirm --needed - < "$BASE_DIR/conf.d/packages"
-pacman -S --noconfirm --needed - < "$BASE_DIR/conf.d/packages-desktop"
+if [[ "$DESKTOP" == true ]]; then
+    pacman -S --noconfirm --needed - < "$BASE_DIR/conf.d/packages-desktop"
+fi
 
 if ! pacman -Qi yay &> /dev/null; then
     # temporaily add nobody to sudoers
