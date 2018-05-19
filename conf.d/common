@@ -7,7 +7,7 @@ export BASE_DIR
 export WORK_DIR
 
 set -o allexport
-source "${BASE_DIR}/conf.d/settings" 
+source "settings" 
 set +o allexport
 
 cd "$WORK_DIR"
