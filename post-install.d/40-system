@@ -28,6 +28,9 @@ cat > /etc/vconsole.conf <<EOF
 KEYMAP=de-latin1
 EOF
 
+# Disable that annoying beep...
+echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
+
 # Hostname
 echo "$HOSTNAME" > /etc/hostname
 
