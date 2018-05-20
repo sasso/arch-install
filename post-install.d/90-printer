@@ -1,0 +1,15 @@
+#!/bin/bash
+set -xeuo pipefail
+
+#
+# X11 related configuration.
+#
+
+if [[ "$DESKTOP" == false ]]; then
+    exit 0
+fi
+
+systemctl enable org.cups.cupsd.service
+systemctl enable avahi-daemon.service
+
+sed -i 's/hosts:.*/hosts: files mymachines myhostname mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] dns/' /etc/nsswitch.conf
