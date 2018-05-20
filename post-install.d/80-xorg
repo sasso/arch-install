@@ -32,7 +32,6 @@ EOF
 cat > /etc/xdg/openbox/autostart <<EOF
 hash xfce4-panel && xfce4-panel &
 hash lxqt-notificationd && lxqt-notificationd &
-hash feh && feh --bg-fill /usr/share/wallpaper.jpg &
 hash numlockx && numlockx &
 hash urxvtd && urxvtd &
 hash redshift && redshift &
