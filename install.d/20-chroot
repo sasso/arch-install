@@ -3,7 +3,7 @@ set -xeuo pipefail
 
 cp -r "$BASE_DIR" /mnt/aai
 
-arch-chroot /mnt ./aai/post-install
+arch-chroot /mnt ./aai/post-install.sh
 
 rm -r /mnt/aai
 umount -R /mnt
