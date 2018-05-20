@@ -22,7 +22,7 @@ EOF
 # Configure lightdm.
 cat > /etc/lightdm/lightdm-gtk-greeter.conf <<EOF
 [greeter]
-background=/usr/share/wallpaper.jpg
+background=/usr/local/share/wallpaper
 theme-name=Adapta
 icon-theme-name=Papirus-Adapta
 font-name=Roboto 11
