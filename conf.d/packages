@@ -21,3 +21,4 @@ wget
 wpa_actiond
 wpa_supplicant
 yay-bin
+tmux
