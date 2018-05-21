@@ -1,5 +1,7 @@
 adapta-gtk-theme
+brother-hl3040cn
 chromium
+cups
 dropbox
 evince
 feh
@@ -8,12 +10,14 @@ firefox
 gnome-calculator
 gthumb
 gvim
+hexchat
 keepassxc
 lightdm
 lightdm-gtk-greeter
 lxappearance
 lxappearance-obconf
 lxqt-notificationd
+nss-mdns
 numlockx
 obconf-qt
 openbox
@@ -38,7 +42,3 @@ xfce4-panel
 xfce4-pulseaudio-plugin
 xfce4-whiskermenu-plugin
 xorg
-brother-hl3040cn
-cups
-nss-mdns
-hexchat
