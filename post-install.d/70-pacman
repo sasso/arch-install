@@ -30,3 +30,8 @@ Description = Cleaning pacman cache...
 When = PostTransaction
 Exec = /usr/bin/paccache -ruk0
 EOF
+
+cat >> /etc/pacman.conf <<EOF
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+EOF
