@@ -35,3 +35,5 @@ cat >> /etc/pacman.conf <<EOF
 [multilib]
 Include = /etc/pacman.d/mirrorlist
 EOF
+
+sed -i 's/#Color/Color/g' /etc/pacman.conf 
