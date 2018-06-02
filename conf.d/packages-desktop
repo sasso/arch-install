@@ -1,8 +1,6 @@
 adapta-gtk-theme
-brother-hl3040cn
 chromium
 cups
-dropbox
 evince
 feh
 file-roller
@@ -34,7 +32,6 @@ ttf-fira-mono
 ttf-font-awesome
 ttf-roboto
 urxvt-perls
-visual-studio-code-bin
 xdotool
 xf86-video-intel
 xfce4-battery-plugin
