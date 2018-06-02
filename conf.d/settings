@@ -7,17 +7,17 @@ RANKMIRRORS=false
 DESKTOP=true
 
 # Whether or not to encrypt the `DEVICE`
-ENCRYPT=false
+ENCRYPT=true
 CRYPT_VOLUME_NAME="cryptroot"
 
 # Partitions
-DEVICE="/dev/sda"
-BOOT_PARTITION="${DEVICE}1"
-HOME_PARTITION="${DEVICE}2"
+DEVICE="/dev/nvme0n1"
+BOOT_PARTITION="${DEVICE}p1"
+HOME_PARTITION="${DEVICE}p2"
 
 # User & Home
-HOSTNAME="host"
-USERNAME="imba3r"
+HOSTNAME="saso.matejina.arch"
+USERNAME="saso"
 USERHOME="/home/$USERNAME"
 
 # Passwords

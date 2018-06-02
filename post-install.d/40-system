@@ -7,13 +7,11 @@ set -xeuo pipefail
 #
 
 # Time Zone
-ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
 hwclock --systohc
 
 # Locales
 cat > /etc/locale.gen <<EOF
-de_DE.UTF-8 UTF-8
-de_DE ISO-8859-1
 en_US.UTF-8 UTF-8
 en_US ISO-8859-1
 EOF
@@ -25,7 +23,7 @@ EOF
 
 # Keymap
 cat > /etc/vconsole.conf <<EOF
-KEYMAP=de-latin1
+KEYMAP=us
 EOF
 
 # Disable that annoying beep...

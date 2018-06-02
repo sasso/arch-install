@@ -7,22 +7,8 @@ set -xeuo pipefail
 
 pacman --noconfirm -Syu
 
-if ! pacman -Qi yay-bin &> /dev/null; then
-    # temporaily add nobody to sudoers
-    cp /etc/sudoers sudoers.bak
-    echo 'nobody ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-
-    # install yay
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    sudo -u nobody makepkg -si --noconfirm --needed
-
-    # rollback changes to sudoers
-    mv sudoers.bak /etc/sudoers
-fi
-
-yay -S --needed --answeredit N --answerclean A --noconfirm - < "$BASE_DIR/conf.d/packages"
+pacman -S --needed --noconfirm - < "$BASE_DIR/conf.d/packages"
 if [[ "$DESKTOP" == true ]]; then
-    yay -Rns vim # vim and gvim are in conflict...
-    yay -S --needed --answeredit N --answerclean A --noconfirm - < "$BASE_DIR/conf.d/packages-desktop"
+    pacman -Rns --noconfirm vim # vim and gvim are in conflict...
+    pacman -S --needed --noconfirm - < "$BASE_DIR/conf.d/packages-desktop"
 fi
