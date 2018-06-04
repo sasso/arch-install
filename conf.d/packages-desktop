@@ -1,5 +1,6 @@
 i3-wm
 i3lock
+i3status
 dmenu
 xorg
 xorg-xinit

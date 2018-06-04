@@ -9,14 +9,14 @@ if [[ "$DESKTOP" == false ]]; then
     exit 0
 fi
 
-cat > ~/.xinitrc <<EOF
-#! /bin/bash
-exec i3
-EOF
+#cat > ~/.xinitrc <<EOF
+##! /bin/bash
+#exec i3
+#EOF
 
-cat >> /etc/profile <<EOF
-# autostart systemd default session on tty1
-if [[ "$(tty)" == '/dev/tty1' ]]; then
-    exec startx
-fi
-EOF
+#cat >> /etc/profile <<EOF
+## autostart systemd default session on tty1
+#if [[ "$(tty)" == '/dev/tty1' ]]; then
+#    exec startx
+#fi
+#EOF
