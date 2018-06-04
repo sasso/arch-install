@@ -1,4 +1,5 @@
-i3 
-dmenu 
-xorg 
+i3-wm
+i3lock
+dmenu
+xorg
 xorg-xinit

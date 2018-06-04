@@ -8,7 +8,7 @@ The installation is configurable, see [settings](conf.d/settings).
 
 
 ```
-$ mount -o remount,size=1G /run/archiso/cowspace
+$ mount -o remount,size=10G /run/archiso/cowspace
 $ pacman -Sy git
 $ git clone https://github.com/sasso/arch-install
 $ cd arch-install
