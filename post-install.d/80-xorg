@@ -9,30 +9,14 @@ if [[ "$DESKTOP" == false ]]; then
     exit 0
 fi
 
-# German Keyboard Layout and no Capslock!
-cat > /etc/X11/xorg.conf.d/00-keyboard.conf <<EOF
-Section "InputClass"
-	Identifier "system-keyboard"
-	MatchIsKeyboard "yes"
-	Option "XkbLayout" "de"
-	Option "XkbOptions" "caps:none"
-EndSection
+cat > ~/.xinitrc <<EOF
+#! /bin/bash
+exec i3
 EOF
 
-# Configure lightdm.
-cat > /etc/lightdm/lightdm-gtk-greeter.conf <<EOF
-[greeter]
-background=/usr/local/share/wallpaper
-theme-name=Adapta
-icon-theme-name=Papirus-Adapta
-font-name=Roboto 11
-EOF
-
-# Configure openbox.
-cat > /etc/xdg/openbox/autostart <<EOF
-hash xfce4-panel && xfce4-panel &
-hash lxqt-notificationd && lxqt-notificationd &
-hash numlockx && numlockx &
-hash urxvtd && urxvtd &
-hash redshift && redshift &
+cat >> /etc/profile <<EOF
+# autostart systemd default session on tty1
+if [[ "$(tty)" == '/dev/tty1' ]]; then
+    exec startx
+fi
 EOF

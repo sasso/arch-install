@@ -16,3 +16,5 @@ unrar
 unzip
 vim
 wget
+zsh
+zsh-completions
